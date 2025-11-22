@@ -1,0 +1,25 @@
+import React from 'react';
+import { View, ActivityIndicator, Text, Image } from 'react-native';
+import { colors } from '@/constants';
+import { loginStyles } from '@/styles/login.styles';
+
+/**
+ * Loading component para PlastiApp Mobile.
+ */
+
+type LoadingProps = {
+  text?: string;
+};
+
+export function Loading({ text = "Cargando..." }: LoadingProps) {
+  return (
+    <View style={loginStyles.loadingContainer}>
+      <Image
+        source={require('../../assets/images/plastiapp-logo.png')}
+        style={loginStyles.loadingLogo}
+      />
+      <ActivityIndicator size="large" color={colors.primary.normal} />
+      <Text style={loginStyles.loadingText}>{text}</Text>
+    </View>
+  );
+}
