@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 import { homeStyles } from '@/styles/home.styles';
 
 /**
@@ -8,7 +9,13 @@ import { homeStyles } from '@/styles/home.styles';
  */
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<'estadisticas' | 'historial'>('estadisticas');
+
+  // Función para navegar a la pantalla de registro
+  const handleAddDelivery = () => {
+    router.push('/auth/register');
+  };
 
   return (
     <View style={homeStyles.container}>
@@ -20,7 +27,10 @@ export default function HomeScreen() {
           </View>
           <Text style={homeStyles.userName}>Jhon Doe</Text>
         </View>
-        <TouchableOpacity style={homeStyles.addButton}>
+        <TouchableOpacity 
+          style={homeStyles.addButton}
+          onPress={handleAddDelivery}
+        >
           <Text style={homeStyles.addButtonText}>Agregar entrega</Text>
         </TouchableOpacity>
       </View>
