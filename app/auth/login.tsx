@@ -25,7 +25,7 @@ export default function LoginScreen() {
 
     // Si la validación pasa, navegar a la pantalla de Home (tabs)
     setErrors({});
-    router.replace('/(tabs)');
+    router.replace('/auth/home.w');
   };
 
   return (
