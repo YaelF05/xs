@@ -1,7 +1,6 @@
 import { User } from '@/types';
 
-
-const API_URL = 'http://localhost:3030/api/auth/login'; // ← CAMBIAR AQUÍ
+const API_URL = 'http://localhost:3030/api'; // Corregido: solo la base URL
 
 export const login = async (credentials: User) => {
   try {
@@ -19,7 +18,22 @@ export const login = async (credentials: User) => {
     }
 
     const data = await response.json();
-    return data;
+    
+    // El backend devuelve: { success, message, responseObject }
+    // Transformamos a lo que el frontend espera
+    if (data.success && data.responseObject) {
+      return {
+        token: data.responseObject.accessToken,
+        refreshToken: data.responseObject.refreshToken,
+        user: {
+          id: data.responseObject.id,
+          name: data.responseObject.name,
+          type: data.responseObject.type,
+        }
+      };
+    }
+    
+    throw new Error(data.message || 'Error al iniciar sesión');
   } catch (error) {
     throw error;
   }

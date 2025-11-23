@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
 /**
- * Estilos exactos para la pantalla de login según el diseño
+ * Estilos para la pantalla de login
  */
 
 export const loginStyles = StyleSheet.create({
@@ -12,7 +12,7 @@ export const loginStyles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
     paddingTop: 60,
-    marginBottom: 90
+    marginBottom: 140
   },
   logoContainer: {
     alignItems: 'flex-start',
@@ -43,7 +43,7 @@ export const loginStyles = StyleSheet.create({
   },
   form: {
     width: '100%',
-    gap: 12,
+    gap: 26,
   },
   loadingContainer: {
     flex: 1,
@@ -62,5 +62,15 @@ export const loginStyles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '500',
     color: colors.texts.normal,
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: colors.white,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    paddingBottom: 70, 
   },
 });

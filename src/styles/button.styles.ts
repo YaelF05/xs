@@ -19,8 +19,9 @@ export const buttonStyles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-    fontSize: 17,
-    fontWeight: '600',
+    fontSize: 22,
+    fontWeight: '900',
     letterSpacing: 0,
+    fontFamily: 'Arimo',
   },
 });
