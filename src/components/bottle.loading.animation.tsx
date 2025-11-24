@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Path, Rect, G, Defs, ClipPath } from 'react-native-svg';
 
-/**
- * Componente de animación de botellas reutilizable
- * Muestra una secuencia animada de 5 botellas SVG
- */
-
 type BottleLoadingAnimationProps = {
   width?: number;
   height?: number;
@@ -93,7 +88,7 @@ const Bottle3SVG = ({ width = 129, height = 247 }) => (
   </Svg>
 );
 
-// Componente SVG para Bottle 4 - Ajustado al mismo viewBox que las demás (0 0 129 247)
+// Componente SVG para Bottle 4 
 const Bottle4SVG = ({ width = 129, height = 247 }) => (
   <Svg width={width} height={height} viewBox="0 0 129 247" fill="none">
     <Rect width="129" height="247" fill="transparent"/>
@@ -146,7 +141,6 @@ export function BottleLoadingAnimation({
 }: BottleLoadingAnimationProps) {
   const [currentBottleIndex, setCurrentBottleIndex] = useState(0);
 
-  // Array de componentes de botellas
   const bottles = [
     <Bottle1SVG key="bottle1" width={width} height={height} />,
     <Bottle2SVG key="bottle2" width={width} height={height} />,
@@ -156,7 +150,7 @@ export function BottleLoadingAnimation({
   ];
 
   useEffect(() => {
-    // Cambiar de botella cada 300ms para crear la animación
+
     const interval = setInterval(() => {
       setCurrentBottleIndex((prevIndex) => (prevIndex + 1) % bottles.length);
     }, 150);

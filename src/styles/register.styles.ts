@@ -30,7 +30,7 @@ export const registerStyles = StyleSheet.create({
     paddingBottom: 100,
   },
 
-  // Título y subtítulo
+  
   title: {
     fontSize: 28,
     fontWeight: '700',
@@ -39,32 +39,32 @@ export const registerStyles = StyleSheet.create({
     marginTop: 8,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '400',
     color: colors.texts.normal,
     lineHeight: 22,
     marginBottom: 24,
   },
 
-  // Total generado
+ 
   totalGenerated: {
-    fontSize: 16,
+    fontSize: 26,
     fontWeight: '400',
     color: colors.texts.dark,
     marginBottom: 32,
   },
   totalAmount: {
-    fontSize: 16,
+    fontSize: 26,
     fontWeight: '700',
     color: colors.primary.normal,
   },
 
-  // Container de plásticos
+
   plasticsContainer: {
     gap: 24,
   },
 
-  // Fila de plástico
+
   plasticRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -74,7 +74,7 @@ export const registerStyles = StyleSheet.create({
     borderBottomColor: '#E5E7EB',
   },
 
-  // Información del plástico
+
   plasticInfo: {
     flex: 1,
   },
@@ -90,14 +90,15 @@ export const registerStyles = StyleSheet.create({
     color: colors.texts.normal,
   },
 
-  // Container del contador
+
   counterContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
+    gap: 10,
+    backgroundColor: colors.primary.light,
   },
 
-  // Botón del contador
+
   counterButton: {
     width: 32,
     height: 32,
@@ -110,16 +111,16 @@ export const registerStyles = StyleSheet.create({
     opacity: 0.8,
   },
 
-  // Cantidad
+
   quantity: {
     fontSize: 20,
     fontWeight: '700',
-    color: colors.texts.dark,
+    color: colors.primary.normal,
     minWidth: 30,
     textAlign: 'center',
   },
 
-  // Container del botón
+  
   buttonContainer: {
     position: 'absolute',
     bottom: 0,

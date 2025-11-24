@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de carga de entrega
- */
-
 export const deliveryLoadingStyles = StyleSheet.create({
   container: {
     flex: 1,

@@ -3,29 +3,24 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { homeStyles } from '@/styles/home.styles';
 
-/**
- * Pantalla de Home para PlastiApp Mobile
- * Muestra estadísticas del evento activo
- */
 
 export default function HomeScreen() {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<'estadisticas' | 'historial'>('estadisticas');
 
-  // Función para navegar a la pantalla de registro
   const handleAddDelivery = () => {
     router.push('/auth/register.deliver');
   };
 
   return (
     <View style={homeStyles.container}>
-      {/* Header con fondo azul - solo perfil y botón */}
+
       <View style={homeStyles.header}>
         <View style={homeStyles.userSection}>
           <View style={homeStyles.avatar}>
-            <Text style={homeStyles.avatarText}>J</Text>
+            <Text style={homeStyles.avatarText}>F</Text>
           </View>
-          <Text style={homeStyles.userName}>Jhon Doe</Text>
+          <Text style={homeStyles.userName}>Yael Franco</Text>
         </View>
         <TouchableOpacity 
           style={homeStyles.addButton}
@@ -35,12 +30,12 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Contenido principal con tabs y gráficas */}
+
       <ScrollView 
         style={homeStyles.content}
         showsVerticalScrollIndicator={false}
       >
-        {/* Tabs dentro del contenido */}
+
         <View style={homeStyles.tabs}>
           <TouchableOpacity
             style={[homeStyles.tab, selectedTab === 'estadisticas' && homeStyles.tabActive]}
@@ -60,7 +55,6 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* AQUÍ DEBERÍAN IR LAS GRÁFICAS Y CONTENIDO DINÁMICO */}
       </ScrollView>
     </View>
   );

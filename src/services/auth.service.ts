@@ -1,6 +1,6 @@
 import { User } from '@/types';
 
-const API_URL = 'http://localhost:3030/api'; // Corregido: solo la base URL
+const API_URL = 'http://localhost:3030/api';
 
 export const login = async (credentials: User) => {
   try {
@@ -19,8 +19,6 @@ export const login = async (credentials: User) => {
 
     const data = await response.json();
     
-    // El backend devuelve: { success, message, responseObject }
-    // Transformamos a lo que el frontend espera
     if (data.success && data.responseObject) {
       return {
         token: data.responseObject.accessToken,

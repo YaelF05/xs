@@ -5,9 +5,7 @@ import { Button, Input } from '@/components';
 import { validateLoginForm } from '@/schemas';
 import { loginStyles } from '@/styles/login.styles';
 
-/**
- * Pantalla de Login para PlastiApp Mobile.
- */
+
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -16,14 +14,14 @@ export default function LoginScreen() {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
   const handleLogin = () => {
-    // Validar que se hayan ingresado correo y contraseña
+
     const validationErrors = validateLoginForm(email, password);
     if (validationErrors) {
       setErrors(validationErrors);
       return;
     }
 
-    // Si la validación pasa, navegar a la pantalla de Home (tabs)
+
     setErrors({});
     router.replace('/auth/home.w');
   };
@@ -39,7 +37,6 @@ export default function LoginScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={loginStyles.container}>
-          {/* Logo PlastiApp */}
           <View style={loginStyles.logoContainer}>
             <Image
               source={require('../../assets/images/plastiapp-logo.png')}
@@ -47,7 +44,6 @@ export default function LoginScreen() {
             />
           </View>
 
-          {/* Sección de Bienvenida */}
           <View style={loginStyles.welcomeContainer}>
             <Text style={loginStyles.welcomeTitle}>¡Buenas tardes!</Text>
             <Text style={loginStyles.welcomeSubtitle}>
@@ -55,7 +51,7 @@ export default function LoginScreen() {
             </Text>
           </View>
 
-          {/* Formulario - SIN EL BOTÓN */}
+
           <View style={loginStyles.form}>
             <Input
               placeholder="Correo electrónico"
@@ -84,7 +80,6 @@ export default function LoginScreen() {
         </View>
       </ScrollView>
       
-      {/* Botón fijo en la parte inferior */}
       <View style={loginStyles.buttonContainer}>
         <Button label="Iniciar sesión" onPress={handleLogin} />
       </View>

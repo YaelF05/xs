@@ -3,9 +3,6 @@ import { View, ActivityIndicator, Text, Image } from 'react-native';
 import { colors } from '@/constants';
 import { loginStyles } from '@/styles/login.styles';
 
-/**
- * Loading component para PlastiApp Mobile.
- */
 
 type LoadingProps = {
   text?: string;

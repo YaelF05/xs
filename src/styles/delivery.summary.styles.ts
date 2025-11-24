@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de resumen de entrega
- */
 
 export const deliverySummaryStyles = StyleSheet.create({
   container: {
@@ -30,41 +27,40 @@ export const deliverySummaryStyles = StyleSheet.create({
     paddingBottom: 100,
   },
   
-  // Título
+
   title: {
-    fontSize: 28,
+    fontSize: 31,
     fontWeight: '700',
     color: colors.texts.dark,
     marginBottom: 16,
     marginTop: 8,
   },
-  
-  // Folio
+
   folio: {
-    fontSize: 18,
+    fontSize: 26,
     fontWeight: '700',
-    color: colors.primary.normal,
+    color: colors.primary.dark,
     marginBottom: 24,
   },
   
-  // Sección "Entregó"
+
   deliveredSection: {
     flexDirection: 'row',
     alignItems: 'baseline',
     marginBottom: 32,
   },
   deliveredLabel: {
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: '400',
     color: colors.texts.dark,
   },
   deliveredValue: {
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: '700',
-    color: colors.texts.dark,
+    color: colors.primary.normal,
   },
   
-  // Tabla
+
   table: {
     marginBottom: 32,
   },
@@ -77,7 +73,7 @@ export const deliverySummaryStyles = StyleSheet.create({
     marginBottom: 8,
   },
   tableHeaderText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '700',
     color: colors.texts.dark,
     flex: 1,
@@ -91,31 +87,31 @@ export const deliverySummaryStyles = StyleSheet.create({
     borderBottomColor: '#F3F4F6',
   },
   tableCell: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '400',
     color: colors.texts.dark,
     flex: 1,
     textAlign: 'left',
   },
   
-  // Total generado
+
   totalSection: {
     flexDirection: 'row',
     alignItems: 'baseline',
     marginTop: 16,
   },
   totalLabel: {
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: '400',
     color: colors.texts.dark,
   },
   totalValue: {
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: '700',
     color: colors.primary.normal,
   },
   
-  // Botón fijo en la parte inferior
+ 
   buttonContainer: {
     position: 'absolute',
     bottom: 0,
