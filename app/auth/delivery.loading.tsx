@@ -15,7 +15,7 @@ export default function DeliveryLoadingScreen() {
   useEffect(() => {
     // Después de 3 segundos, navegar de regreso al home
     const timeout = setTimeout(() => {
-      router.replace('/auth/home.w');
+      router.replace('/auth/delivery.summary');
     }, 3000);
 
     return () => {

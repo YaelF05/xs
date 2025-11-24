@@ -21,7 +21,7 @@ export const deliveryLoadingStyles = StyleSheet.create({
   loadingText: {
     fontSize: 20,
     fontWeight: '600',
-    color: colors.primary.normal,
+    color: colors.secondary.normal,
     textAlign: 'center',
     letterSpacing: 0.3,
   },

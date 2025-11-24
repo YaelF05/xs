@@ -31,6 +31,19 @@ export default function RegisterScreen() {
     }, 0);
   };
 
+  // Calcular el valor por tipo de plástico
+  const calculatePlasticValue = (plasticId: string, pricePerKg: number) => {
+    const quantity = plasticQuantities[plasticId] || 0;
+    return quantity * pricePerKg;
+  };
+
+  // Generar folio único
+  const generateFolio = () => {
+    const timestamp = Date.now().toString();
+    const random = Math.random().toString(36).substring(2, 9).toUpperCase();
+    return `Folio ${timestamp.slice(-6)}${random.slice(0, 3)}`;
+  };
+
   // Incrementar cantidad
   const incrementQuantity = (plasticId: string) => {
     setPlasticQuantities(prev => ({
@@ -49,11 +62,26 @@ export default function RegisterScreen() {
 
   // Manejar el botón de continuar
   const handleContinue = () => {
-    // TODO: Aquí se implementará la lógica para guardar los datos
-    console.log('Plásticos registrados:', plasticQuantities);
-    console.log('Total generado: $', calculateTotal());
-    // Por ahora solo navegamos de regreso
-    router.push('/auth/delivery-loading');
+    // Generar el folio
+    const folio = generateFolio();
+    
+    // Preparar los datos para pasar
+    const deliveryData = {
+      folio: folio,
+      petKg: plasticQuantities.PET.toString(),
+      pebdKg: plasticQuantities.PEBD.toString(),
+      ppKg: plasticQuantities.PP.toString(),
+      petValue: calculatePlasticValue('PET', 8).toString(),
+      pebdValue: calculatePlasticValue('PEBD', 6).toString(),
+      ppValue: calculatePlasticValue('PP', 4).toString(),
+      totalGenerated: calculateTotal().toString(),
+    };
+    
+    // Navegar a la pantalla de carga pasando los datos
+    router.push({
+      pathname: '/auth/delivery.loading',
+      params: deliveryData,
+    });
   };
 
   return (
