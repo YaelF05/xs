@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Button } from '@/components';
+import { Button, DeliveryModal } from '@/components';
 import { deliverySummaryStyles } from '@/styles/delivery.summary.styles';
 import { colors } from '@/constants';
 
 export default function DeliverySummaryScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const [modalVisible, setModalVisible] = useState(false);
   
 
   //const folio = params.folio as string || '1';
@@ -23,6 +24,11 @@ export default function DeliverySummaryScreen() {
 
 
   const handleFinish = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
     router.replace('/auth/home.w');
   };
 
@@ -97,6 +103,9 @@ export default function DeliverySummaryScreen() {
       <View style={deliverySummaryStyles.buttonContainer}>
         <Button label="Finalizar" onPress={handleFinish} />
       </View>
+
+      {/* Modal de confirmación */}
+      <DeliveryModal visible={modalVisible} onClose={handleCloseModal} />
     </View>
   );
 }

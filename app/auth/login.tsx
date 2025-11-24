@@ -23,7 +23,7 @@ export default function LoginScreen() {
 
 
     setErrors({});
-    router.replace('/auth/home.w');
+    router.replace('/auth/home.deliver');
   };
 
   return (
