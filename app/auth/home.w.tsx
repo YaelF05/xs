@@ -14,7 +14,7 @@ export default function HomeScreen() {
 
   // Función para navegar a la pantalla de registro
   const handleAddDelivery = () => {
-    router.push('/auth/register');
+    router.push('/auth/register.e');
   };
 
   return (

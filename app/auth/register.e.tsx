@@ -7,8 +7,6 @@ import { registerStyles } from '@/styles/register.styles';
 import { colors } from '@/constants';
 
 
-
-// Datos mock de los tipos de plásticos disponibles
 const PLASTIC_TYPES = [
   { id: 'PET', name: 'PET', pricePerKg: 8 },
   { id: 'PEBD', name: 'PEBD', pricePerKg: 6 },
@@ -55,7 +53,7 @@ export default function RegisterScreen() {
     console.log('Plásticos registrados:', plasticQuantities);
     console.log('Total generado: $', calculateTotal());
     // Por ahora solo navegamos de regreso
-    router.back();
+    router.push('/auth/delivery-loading');
   };
 
   return (
