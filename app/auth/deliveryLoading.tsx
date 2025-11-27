@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { useRouter } from 'expo-router';
 import { BottleLoadingAnimation } from '@/components';
 import { deliveryLoadingStyles } from '@/styles/delivery.loading.styles';
+import { useRouter } from 'expo-router';
+import React, { useEffect } from 'react';
+import { Text, View } from 'react-native';
 
 
 export default function DeliveryLoadingScreen() {
@@ -11,7 +11,7 @@ export default function DeliveryLoadingScreen() {
   useEffect(() => {
 
     const timeout = setTimeout(() => {
-      router.replace('/auth/delivery.summary');
+      router.replace('/auth/deliverySummary');
     }, 3000);
 
     return () => {

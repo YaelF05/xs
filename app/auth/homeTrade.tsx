@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
 import { homeStyles } from '@/styles/home.styles';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 
 export default function HomeScreen() {
@@ -9,7 +9,7 @@ export default function HomeScreen() {
   const [selectedTab, setSelectedTab] = useState<'estadisticas' | 'historial'>('estadisticas');
 
   const handleAddDelivery = () => {
-    router.push('/auth/register.deliver');
+    router.push('/auth/validateFolio');
   };
 
   return (
@@ -22,7 +22,7 @@ export default function HomeScreen() {
           </View>
           <Text style={homeStyles.userName}>Yael Franco</Text>
         </View>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={homeStyles.addButton}
           onPress={handleAddDelivery}
         >
@@ -31,7 +31,7 @@ export default function HomeScreen() {
       </View>
 
 
-      <ScrollView 
+      <ScrollView
         style={homeStyles.content}
         showsVerticalScrollIndicator={false}
       >

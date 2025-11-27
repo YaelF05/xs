@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de Home
- */
-
 export const homeStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,7 +14,7 @@ export const homeStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 56,
     paddingBottom: 16,
-    backgroundColor: colors.primary.light, // Azul claro
+    backgroundColor: colors.primary.light, 
   },
   userSection: {
     flexDirection: 'row',
@@ -59,12 +55,12 @@ export const homeStyles = StyleSheet.create({
     marginTop: -5,
     fontFamily: 'Arimo'
   },
-  // Contenido principal
+
   content: {
     flex: 1,
     backgroundColor: colors.white,
   },
-  // Tabs centrados sin línea inferior
+ 
   tabs: {
     flexDirection: 'row',
     backgroundColor: colors.white,
@@ -79,7 +75,7 @@ export const homeStyles = StyleSheet.create({
     paddingBottom: 0,
   },
   tabActive: {
-    // Sin border inferior
+    
   },
   tabText: {
     fontSize: 16,

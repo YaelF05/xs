@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components';
-import { registerStyles } from '@/styles/register.styles';
 import { colors } from '@/constants';
+import { registerStyles } from '@/styles/register.styles';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 
 const PLASTIC_TYPES = [
@@ -15,7 +15,7 @@ const PLASTIC_TYPES = [
 
 export default function RegisterScreen() {
   const router = useRouter();
-  
+
   // Estado para almacenar los kilogramos de cada tipo de plástico
   const [plasticQuantities, setPlasticQuantities] = useState<Record<string, number>>({
     PET: 0,
@@ -64,7 +64,7 @@ export default function RegisterScreen() {
   const handleContinue = () => {
     // Generar el folio
     const folio = generateFolio();
-    
+
     // Preparar los datos para pasar
     const deliveryData = {
       folio: folio,
@@ -76,10 +76,10 @@ export default function RegisterScreen() {
       ppValue: calculatePlasticValue('PP', 4).toString(),
       totalGenerated: calculateTotal().toString(),
     };
-    
+
     // Navegar a la pantalla de carga pasando los datos
     router.push({
-      pathname: '/auth/delivery.loading',
+      pathname: '/auth/deliveryLoading',
       params: deliveryData,
     });
   };
@@ -88,7 +88,7 @@ export default function RegisterScreen() {
     <View style={registerStyles.container}>
       {/* Header */}
       <View style={registerStyles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => router.back()}
           style={registerStyles.backButton}
         >
@@ -97,7 +97,7 @@ export default function RegisterScreen() {
       </View>
 
       {/* Contenido */}
-      <ScrollView 
+      <ScrollView
         style={registerStyles.content}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={registerStyles.scrollContent}

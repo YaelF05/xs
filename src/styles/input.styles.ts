@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos exactos para el Input según el diseño
- */
-
 export const inputStyles = StyleSheet.create({
   container: {
     marginBottom: 0,

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { Button, DeliveryModal } from '@/components';
-import { deliverySummaryStyles } from '@/styles/delivery.summary.styles';
 import { colors } from '@/constants';
+import { deliverySummaryStyles } from '@/styles/delivery.summary.styles';
+import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export default function DeliverySummaryScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
-  
+
 
   //const folio = params.folio as string || '1';
   //const petKg = parseFloat(params.petKg as string) || 0;
@@ -29,14 +29,14 @@ export default function DeliverySummaryScreen() {
 
   const handleCloseModal = () => {
     setModalVisible(false);
-    router.replace('/auth/home.w');
+    router.replace('/auth/homeDeliver');
   };
 
   return (
     <View style={deliverySummaryStyles.container}>
 
       <View style={deliverySummaryStyles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => router.back()}
           style={deliverySummaryStyles.backButton}
         >
@@ -45,7 +45,7 @@ export default function DeliverySummaryScreen() {
       </View>
 
 
-      <ScrollView 
+      <ScrollView
         style={deliverySummaryStyles.content}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={deliverySummaryStyles.scrollContent}
@@ -92,7 +92,7 @@ export default function DeliverySummaryScreen() {
           </View>
         </View>
 
- 
+
         <View style={deliverySummaryStyles.totalSection}>
           <Text style={deliverySummaryStyles.totalLabel}>Total generado: </Text>
           <Text style={deliverySummaryStyles.totalValue}>$16</Text>
@@ -104,7 +104,6 @@ export default function DeliverySummaryScreen() {
         <Button label="Finalizar" onPress={handleFinish} />
       </View>
 
-      {/* Modal de confirmación */}
       <DeliveryModal visible={modalVisible} onClose={handleCloseModal} />
     </View>
   );

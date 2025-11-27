@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos exactos para el Button según el diseño
- */
-
 export const buttonStyles = StyleSheet.create({
   button: {
     backgroundColor: colors.primary.normal,

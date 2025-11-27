@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Button, Input } from '@/components';
 import { validateLoginForm } from '@/schemas';
 import { loginStyles } from '@/styles/login.styles';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
 
 
 
@@ -23,7 +23,7 @@ export default function LoginScreen() {
 
 
     setErrors({});
-    router.replace('/auth/home.deliver');
+    router.replace('/auth/homeDeliver');
   };
 
   return (
@@ -79,7 +79,7 @@ export default function LoginScreen() {
           </View>
         </View>
       </ScrollView>
-      
+
       <View style={loginStyles.buttonContainer}>
         <Button label="Iniciar sesión" onPress={handleLogin} />
       </View>

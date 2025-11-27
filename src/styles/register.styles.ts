@@ -7,7 +7,7 @@ export const registerStyles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 
-  // Header
+ 
   header: {
     paddingHorizontal: 20,
     paddingTop: 56,
@@ -21,7 +21,7 @@ export const registerStyles = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
-  // Contenido
+ 
   content: {
     flex: 1,
   },
