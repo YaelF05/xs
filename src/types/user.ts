@@ -1,19 +1,32 @@
-// Credenciales para login
+export enum UserRoles {
+  ADMIN = 1,
+  MERCADITO = 2,
+  PESAJE = 3,
+}
+
 export type User = {
   email: string;
   password: string;
 };
 
-// Datos del usuario autenticado
 export type AuthUser = {
   id: number;
   name: string;
-  type: string;
+  type: UserRoles;
 };
 
-// Respuesta completa del login
-export type LoginResponse = {
-  token: string;
+export type LoginResponseObject = {
+  id: number;
+  name: string;
+  type: string;
+  typeId: number;
+  accessToken: string;
   refreshToken: string;
-  user: AuthUser;
+};
+
+export type LoginResponse = {
+  success: boolean;
+  message: string;
+  responseObject: LoginResponseObject;
+  statusCode: number;
 };

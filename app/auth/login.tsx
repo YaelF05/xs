@@ -1,4 +1,5 @@
 import { Button, Input } from '@/components';
+import { UserRoles } from '@/constants/roles';
 import { validateLoginForm } from '@/schemas';
 import { authService } from '@/services/auth.service';
 import { loginStyles } from '@/styles/login.styles';
@@ -22,8 +23,23 @@ export default function LoginScreen() {
     setErrors({});
 
     try {
-      await authService.login(email, password);
-      router.replace('/auth/homeDeliver');
+      const response = await authService.login(email, password);
+
+      const userRole = response.user.type;
+
+      switch (userRole) {
+        case UserRoles.MERCADITO:
+          router.replace('/auth/homeTrade');
+          break;
+        case UserRoles.PESAJE:
+          router.replace('/auth/homeDeliver');
+          break;
+        case UserRoles.ADMIN:
+          router.replace('/auth/homeDeliver');
+          break;
+        default:
+          Alert.alert('Error', 'Tipo de usuario no reconocido');
+      }
     } catch (error: any) {
       console.error(error);
       Alert.alert('Error', 'Credenciales inválidas o error en el servidor');

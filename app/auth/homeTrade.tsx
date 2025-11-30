@@ -1,12 +1,22 @@
+import { authService } from '@/services/auth.service';
 import { homeStyles } from '@/styles/home.styles';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 
 export default function HomeTradeScreen() {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<'estadisticas' | 'historial'>('estadisticas');
+  const [userName, setUserName] = useState<string>('');
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const name = await authService.getUserName();
+      if (name) setUserName(name);
+    };
+    loadUser();
+  }, []);
 
   const handleAddDelivery = () => {
     router.push('/auth/validateFolio');
@@ -18,9 +28,9 @@ export default function HomeTradeScreen() {
       <View style={homeStyles.header}>
         <View style={homeStyles.userSection}>
           <View style={homeStyles.avatar}>
-            <Text style={homeStyles.avatarText}>F</Text>
+            <Text style={homeStyles.avatarText}>{userName ? userName.charAt(0).toUpperCase() : 'U'}</Text>
           </View>
-          <Text style={homeStyles.userName}>Yael Franco (Trade)</Text>
+          <Text style={homeStyles.userName}>{userName || 'Usuario'}</Text>
         </View>
         <TouchableOpacity
           style={homeStyles.addButton}
