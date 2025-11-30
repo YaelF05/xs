@@ -1,11 +1,10 @@
 import { Button, Input } from '@/components';
 import { validateLoginForm } from '@/schemas';
+import { authService } from '@/services/auth.service';
 import { loginStyles } from '@/styles/login.styles';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
-
-
+import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -13,17 +12,22 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
-  const handleLogin = () => {
-
+  const handleLogin = async () => {
     const validationErrors = validateLoginForm(email, password);
     if (validationErrors) {
       setErrors(validationErrors);
       return;
     }
 
-
     setErrors({});
-    router.replace('/auth/homeDeliver');
+
+    try {
+      await authService.login(email, password);
+      router.replace('/auth/homeDeliver');
+    } catch (error: any) {
+      console.error(error);
+      Alert.alert('Error', 'Credenciales inválidas o error en el servidor');
+    }
   };
 
   return (
@@ -50,7 +54,6 @@ export default function LoginScreen() {
               Ingresa tus credenciales para iniciar sesión
             </Text>
           </View>
-
 
           <View style={loginStyles.form}>
             <Input

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 
-export default function HomeScreen() {
+export default function HomeTradeScreen() {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<'estadisticas' | 'historial'>('estadisticas');
 
@@ -20,7 +20,7 @@ export default function HomeScreen() {
           <View style={homeStyles.avatar}>
             <Text style={homeStyles.avatarText}>F</Text>
           </View>
-          <Text style={homeStyles.userName}>Yael Franco</Text>
+          <Text style={homeStyles.userName}>Yael Franco (Trade)</Text>
         </View>
         <TouchableOpacity
           style={homeStyles.addButton}
