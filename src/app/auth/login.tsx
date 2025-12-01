@@ -29,13 +29,13 @@ export default function LoginScreen() {
 
       switch (userRole) {
         case UserRoles.MERCADITO:
-          router.replace('/auth/homeTrade');
+          router.replace('/(app)/homeTrade');
           break;
         case UserRoles.PESAJE:
-          router.replace('/auth/homeDeliver');
+          router.replace('/(app)/homeDeliver');
           break;
         case UserRoles.ADMIN:
-          router.replace('/auth/homeDeliver');
+          router.replace('/(app)/homeDeliver');
           break;
         default:
           Alert.alert('Error', 'Tipo de usuario no reconocido');
@@ -59,7 +59,7 @@ export default function LoginScreen() {
         <View style={loginStyles.container}>
           <View style={loginStyles.logoContainer}>
             <Image
-              source={require('../../assets/images/plastiapp-logo.png')}
+              source={require('../../../assets/images/plastiapp-logo.png')}
               style={loginStyles.logo}
             />
           </View>

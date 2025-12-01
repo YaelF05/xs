@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de validación de folio
- */
-
 export const validateFolioStyles = StyleSheet.create({
   container: {
     flex: 1,

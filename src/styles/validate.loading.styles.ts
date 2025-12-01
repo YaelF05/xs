@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de carga de validación de folio
- */
 
 export const validateLoadingStyles = StyleSheet.create({
   container: {

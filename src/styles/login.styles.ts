@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de login
- */
-
 export const loginStyles = StyleSheet.create({
   container: {
     flex: 1,

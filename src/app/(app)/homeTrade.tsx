@@ -19,7 +19,7 @@ export default function HomeTradeScreen() {
   }, []);
 
   const handleAddDelivery = () => {
-    router.push('/auth/validateFolio');
+    router.push('/(app)/validateFolio');
   };
 
   return (

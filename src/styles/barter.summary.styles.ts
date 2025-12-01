@@ -1,17 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de resumen del canje
- */
-
 export const barterSummaryStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
   },
-  
-  // Header
+
   header: {
     paddingHorizontal: 20,
     paddingTop: 56,
@@ -24,8 +19,7 @@ export const barterSummaryStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-  
-  // Contenido
+
   content: {
     flex: 1,
     paddingHorizontal: 20,
@@ -33,8 +27,7 @@ export const barterSummaryStyles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 100,
   },
-  
-  // Título
+
   title: {
     fontSize: 28,
     fontWeight: '700',
@@ -42,16 +35,14 @@ export const barterSummaryStyles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 8,
   },
-  
-  // Folio
+
   folio: {
     fontSize: 22,
     fontWeight: '700',
     color: colors.primary.dark,
     marginBottom: 24,
   },
-  
-  // Información de entrega
+
   deliveredSection: {
     flexDirection: 'row',
     alignItems: 'baseline',
@@ -67,8 +58,7 @@ export const barterSummaryStyles = StyleSheet.create({
     fontWeight: '700',
     color: colors.primary.normal,
   },
-  
-  // Tabla de plásticos
+
   plasticTable: {
     marginBottom: 24,
   },
@@ -101,8 +91,7 @@ export const barterSummaryStyles = StyleSheet.create({
     flex: 1,
     textAlign: 'left',
   },
-  
-  // Total generado
+
   totalGeneratedSection: {
     flexDirection: 'row',
     alignItems: 'baseline',
@@ -118,8 +107,7 @@ export const barterSummaryStyles = StyleSheet.create({
     fontWeight: '700',
     color: colors.primary.normal,
   },
-  
-  // Sección de canjeado
+
   barterSection: {
     marginBottom: 24,
   },
@@ -129,8 +117,7 @@ export const barterSummaryStyles = StyleSheet.create({
     color: colors.texts.dark,
     marginBottom: 16,
   },
-  
-  // Tabla de productos canjeados
+
   productsTable: {
     marginBottom: 24,
   },
@@ -149,7 +136,6 @@ export const barterSummaryStyles = StyleSheet.create({
     textAlign: 'left',
   },
   
-  // Total canjeado
   totalBarterSection: {
     flexDirection: 'row',
     alignItems: 'baseline',
@@ -166,7 +152,7 @@ export const barterSummaryStyles = StyleSheet.create({
     color: colors.primary.normal,
   },
   
-  // Botón fijo
+
   buttonContainer: {
     position: 'absolute',
     bottom: 0,

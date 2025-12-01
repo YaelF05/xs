@@ -1,47 +1,42 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components';
-import { validateFolioStyles } from '@/styles/validate.folio.styles';
 import { colors } from '@/constants';
+import { validateFolioStyles } from '@/styles/validate.folio.styles';
+import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function ValidateFolioScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
-  
+
   const [folio, setFolio] = useState('');
   const [error, setError] = useState('');
 
   const handleValidate = () => {
-    // Validar que se haya ingresado un folio
     if (!folio.trim()) {
       setError('Por favor ingresa un número de folio');
       Alert.alert('Campo requerido', 'Por favor ingresa un número de folio para continuar');
       return;
     }
-    
-    // Limpiar error si existe
+
     setError('');
-    
-    // Agregar el folio a los parámetros
+
     const dataWithFolio = {
       ...params,
       folioIngresado: folio.trim(),
     };
-    
-    // Navegar a la pantalla de carga de validación
+
     router.push({
-      pathname: '/auth/validateLoading',
+      pathname: '/(app)/validateLoading',
       params: dataWithFolio,
     });
   };
 
   return (
     <View style={validateFolioStyles.container}>
-      {/* Header */}
       <View style={validateFolioStyles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => router.back()}
           style={validateFolioStyles.backButton}
         >
@@ -49,17 +44,13 @@ export default function ValidateFolioScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Contenido */}
       <View style={validateFolioStyles.content}>
-        {/* Título */}
         <Text style={validateFolioStyles.title}>Folio</Text>
-        
-        {/* Subtítulo */}
+
         <Text style={validateFolioStyles.subtitle}>
           Validaremos el folio con el ingresado en el área de pesaje para asignar la cantidad correcta de pesos
         </Text>
 
-        {/* Input de folio */}
         <TextInput
           style={[
             validateFolioStyles.input,
@@ -70,13 +61,12 @@ export default function ValidateFolioScreen() {
           value={folio}
           onChangeText={(text) => {
             setFolio(text);
-            if (error) setError(''); // Limpiar error al escribir
+            if (error) setError(''); 
           }}
           autoCapitalize="none"
           autoCorrect={false}
         />
-        
-        {/* Mostrar mensaje de error si existe */}
+
         {error ? (
           <Text style={{ color: '#EF4444', fontSize: 13, marginTop: 6, marginLeft: 4 }}>
             {error}
@@ -84,7 +74,6 @@ export default function ValidateFolioScreen() {
         ) : null}
       </View>
 
-      {/* Botón fijo en la parte inferior */}
       <View style={validateFolioStyles.buttonContainer}>
         <Button label="Validar" onPress={handleValidate} />
       </View>

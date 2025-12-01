@@ -1,17 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
 
-/**
- * Estilos para la pantalla de registro de canje
- */
-
 export const registerBarterStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
   },
 
-  // Header
   header: {
     paddingHorizontal: 20,
     paddingTop: 56,
@@ -25,7 +20,6 @@ export const registerBarterStyles = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
-  // Contenido
   content: {
     flex: 1,
   },
@@ -34,7 +28,6 @@ export const registerBarterStyles = StyleSheet.create({
     paddingBottom: 100,
   },
 
-  // Título
   title: {
     fontSize: 24,
     fontWeight: '700',
@@ -43,7 +36,6 @@ export const registerBarterStyles = StyleSheet.create({
     marginTop: 8,
   },
 
-  // Subtítulo
   subtitle: {
     fontSize: 16,
     fontWeight: '400',
@@ -51,7 +43,6 @@ export const registerBarterStyles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  // Información de KG y valores
   infoRow: {
     flexDirection: 'row',
     alignItems: 'baseline',
@@ -74,7 +65,6 @@ export const registerBarterStyles = StyleSheet.create({
     color: colors.texts.dark,
   },
 
-  // Barra de búsqueda y filtro
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -112,12 +102,10 @@ export const registerBarterStyles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  // Lista de productos
   productsContainer: {
     gap: 16,
   },
 
-  // Producto individual
   productRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -147,7 +135,6 @@ export const registerBarterStyles = StyleSheet.create({
     color: colors.texts.dark,
   },
 
-  // Contador de producto
   counterContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -172,7 +159,6 @@ export const registerBarterStyles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // Botón fijo
   buttonContainer: {
     position: 'absolute',
     bottom: 0,

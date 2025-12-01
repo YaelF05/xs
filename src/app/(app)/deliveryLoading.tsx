@@ -11,7 +11,7 @@ export default function DeliveryLoadingScreen() {
   useEffect(() => {
 
     const timeout = setTimeout(() => {
-      router.replace('/auth/deliverySummary');
+      router.replace('/(app)/deliverySummary');
     }, 3000);
 
     return () => {

@@ -1,92 +1,102 @@
 import { Button } from '@/components';
 import { colors } from '@/constants';
+import { plasticService, PlasticType } from '@/services';
 import { registerStyles } from '@/styles/register.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-
-
-const PLASTIC_TYPES = [
-  { id: 'PET', name: 'PET', pricePerKg: 8 },
-  { id: 'PEBD', name: 'PEBD', pricePerKg: 6 },
-  { id: 'PP', name: 'PP', pricePerKg: 4 },
-];
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export default function RegisterScreen() {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [plastics, setPlastics] = useState<PlasticType[]>([]);
+  const [plasticQuantities, setPlasticQuantities] = useState<Record<number, number>>({});
 
-  // Estado para almacenar los kilogramos de cada tipo de plástico
-  const [plasticQuantities, setPlasticQuantities] = useState<Record<string, number>>({
-    PET: 0,
-    PEBD: 0,
-    PP: 0,
-  });
+  useEffect(() => {
+    loadPlastics();
+  }, []);
 
-  // Calcular el total generado
+  const loadPlastics = async () => {
+    try {
+      const data = await plasticService.getAllPlastics();
+      setPlastics(data);
+      const initialQuantities: Record<number, number> = {};
+      data.forEach(p => initialQuantities[p.id] = 0);
+      setPlasticQuantities(initialQuantities);
+    } catch (error) {
+      console.error('Error loading plastics:', error);
+      Alert.alert('Error', 'No se pudieron cargar los tipos de plástico');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const calculateTotal = () => {
-    return PLASTIC_TYPES.reduce((total, plastic) => {
+    return plastics.reduce((total, plastic) => {
       const quantity = plasticQuantities[plastic.id] || 0;
-      return total + (quantity * plastic.pricePerKg);
+      return total + (quantity * plastic.price);
     }, 0);
   };
 
-  // Calcular el valor por tipo de plástico
-  const calculatePlasticValue = (plasticId: string, pricePerKg: number) => {
+  const calculatePlasticValue = (plasticId: number, pricePerKg: number) => {
     const quantity = plasticQuantities[plasticId] || 0;
     return quantity * pricePerKg;
   };
 
-  // Generar folio único
   const generateFolio = () => {
     const timestamp = Date.now().toString();
     const random = Math.random().toString(36).substring(2, 9).toUpperCase();
     return `Folio ${timestamp.slice(-6)}${random.slice(0, 3)}`;
   };
 
-  // Incrementar cantidad
-  const incrementQuantity = (plasticId: string) => {
+  const incrementQuantity = (plasticId: number) => {
     setPlasticQuantities(prev => ({
       ...prev,
       [plasticId]: (prev[plasticId] || 0) + 1
     }));
   };
 
-  // Decrementar cantidad
-  const decrementQuantity = (plasticId: string) => {
+  const decrementQuantity = (plasticId: number) => {
     setPlasticQuantities(prev => ({
       ...prev,
       [plasticId]: Math.max(0, (prev[plasticId] || 0) - 1)
     }));
   };
 
-  // Manejar el botón de continuar
   const handleContinue = () => {
-    // Generar el folio
     const folio = generateFolio();
 
-    // Preparar los datos para pasar
+    const selectedPlastics = plastics.map(p => ({
+      id: p.id,
+      name: p.name,
+      quantity: plasticQuantities[p.id] || 0,
+      value: calculatePlasticValue(p.id, p.price),
+      pricePerKg: p.price
+    }));
+
     const deliveryData = {
       folio: folio,
-      petKg: plasticQuantities.PET.toString(),
-      pebdKg: plasticQuantities.PEBD.toString(),
-      ppKg: plasticQuantities.PP.toString(),
-      petValue: calculatePlasticValue('PET', 8).toString(),
-      pebdValue: calculatePlasticValue('PEBD', 6).toString(),
-      ppValue: calculatePlasticValue('PP', 4).toString(),
       totalGenerated: calculateTotal().toString(),
+      plasticsData: JSON.stringify(selectedPlastics)
     };
 
-    // Navegar a la pantalla de carga pasando los datos
     router.push({
-      pathname: '/auth/deliveryLoading',
+      pathname: '/(app)/deliveryLoading',
       params: deliveryData,
     });
   };
 
+  if (loading) {
+    return (
+      <View style={[registerStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" color={colors.primary.normal} />
+      </View>
+    );
+  }
+
   return (
     <View style={registerStyles.container}>
-      {/* Header */}
       <View style={registerStyles.header}>
         <TouchableOpacity
           onPress={() => router.back()}
@@ -96,36 +106,31 @@ export default function RegisterScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Contenido */}
       <ScrollView
         style={registerStyles.content}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={registerStyles.scrollContent}
       >
-        {/* Título y subtítulo */}
         <Text style={registerStyles.title}>Agrega una entrega</Text>
         <Text style={registerStyles.subtitle}>
           Ingresa los kilogramos de plástico del plastiamigo
         </Text>
 
-        {/* Total generado */}
         <Text style={registerStyles.totalGenerated}>
           <Text style={registerStyles.totalAmount}>${calculateTotal()}</Text> generados
         </Text>
 
-        {/* Lista de tipos de plástico */}
         <View style={registerStyles.plasticsContainer}>
-          {PLASTIC_TYPES.map((plastic) => (
+          {plastics.map((plastic) => (
             <View key={plastic.id} style={registerStyles.plasticRow}>
               <View style={registerStyles.plasticInfo}>
                 <Text style={registerStyles.plasticName}>{plastic.name}</Text>
                 <Text style={registerStyles.plasticPrice}>
-                  ${plastic.pricePerKg} por KG
+                  ${plastic.price} por KG
                 </Text>
               </View>
 
               <View style={registerStyles.counterContainer}>
-                {/* Botón de decrementar */}
                 <Pressable
                   onPress={() => decrementQuantity(plastic.id)}
                   style={({ pressed }) => [
@@ -136,12 +141,10 @@ export default function RegisterScreen() {
                   <Ionicons name="remove" size={20} color={colors.white} />
                 </Pressable>
 
-                {/* Cantidad */}
                 <Text style={registerStyles.quantity}>
                   {plasticQuantities[plastic.id] || 0}
                 </Text>
 
-                {/* Botón de incrementar */}
                 <Pressable
                   onPress={() => incrementQuantity(plastic.id)}
                   style={({ pressed }) => [
@@ -157,7 +160,6 @@ export default function RegisterScreen() {
         </View>
       </ScrollView>
 
-      {/* Botón fijo en la parte inferior */}
       <View style={registerStyles.buttonContainer}>
         <Button label="Continuar" onPress={handleContinue} />
       </View>

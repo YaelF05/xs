@@ -18,7 +18,7 @@ export default function HomeDeliverScreen() {
   }, []);
 
   const handleAddDelivery = () => {
-    router.push('/auth/registerDeliver');
+    router.push('/(app)/registerDeliver');
   };
 
   return (
