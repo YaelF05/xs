@@ -8,7 +8,7 @@ export const buttonStyles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 10,
   },
   buttonPressed: {
     opacity: 0.9,

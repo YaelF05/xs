@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-
 export default function HomeTradeScreen() {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<'estadisticas' | 'historial'>('estadisticas');
@@ -22,16 +21,23 @@ export default function HomeTradeScreen() {
     router.push('/(app)/validateFolio');
   };
 
+  const handleProfilePress = () => {
+    router.push('/(app)/settings');
+  };
+
   return (
     <View style={homeStyles.container}>
-
       <View style={homeStyles.header}>
-        <View style={homeStyles.userSection}>
+        <TouchableOpacity 
+          style={homeStyles.userSection}
+          onPress={handleProfilePress}
+          activeOpacity={0.7}
+        >
           <View style={homeStyles.avatar}>
             <Text style={homeStyles.avatarText}>{userName ? userName.charAt(0).toUpperCase() : 'U'}</Text>
           </View>
           <Text style={homeStyles.userName}>{userName || 'Usuario'}</Text>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.addButton}
           onPress={handleAddDelivery}
@@ -40,12 +46,10 @@ export default function HomeTradeScreen() {
         </TouchableOpacity>
       </View>
 
-
       <ScrollView
         style={homeStyles.content}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={homeStyles.tabs}>
           <TouchableOpacity
             style={[homeStyles.tab, selectedTab === 'estadisticas' && homeStyles.tabActive]}
@@ -64,7 +68,6 @@ export default function HomeTradeScreen() {
             </Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
     </View>
   );

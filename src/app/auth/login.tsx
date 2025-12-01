@@ -1,11 +1,11 @@
-import { Button, Input } from '@/components';
+import { Button, Input, PlastiappLogo } from '@/components';
 import { UserRoles } from '@/constants/roles';
 import { validateLoginForm } from '@/schemas';
 import { authService } from '@/services/auth.service';
 import { loginStyles } from '@/styles/login.styles';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -58,10 +58,7 @@ export default function LoginScreen() {
       >
         <View style={loginStyles.container}>
           <View style={loginStyles.logoContainer}>
-            <Image
-              source={require('../../../assets/images/plastiapp-logo.png')}
-              style={loginStyles.logo}
-            />
+            <PlastiappLogo width={316} height={90} />
           </View>
 
           <View style={loginStyles.welcomeContainer}>

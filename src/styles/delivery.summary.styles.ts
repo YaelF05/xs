@@ -66,7 +66,6 @@ export const deliverySummaryStyles = StyleSheet.create({
   },
   tableHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB',
@@ -77,11 +76,9 @@ export const deliverySummaryStyles = StyleSheet.create({
     fontWeight: '700',
     color: colors.texts.dark,
     flex: 1,
-    textAlign: 'left',
   },
   tableRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#F3F4F6',
@@ -91,7 +88,6 @@ export const deliverySummaryStyles = StyleSheet.create({
     fontWeight: '400',
     color: colors.texts.dark,
     flex: 1,
-    textAlign: 'left',
   },
 
 

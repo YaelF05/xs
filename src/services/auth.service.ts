@@ -45,7 +45,16 @@ export const authService = {
     },
 
     async logout() {
-        await AsyncStorage.multiRemove(['token', 'userName', 'userRole']);
+        try {
+            const token = await AsyncStorage.getItem('token');
+            if (token) {
+                await api.post('/api/auth/logout');
+            }
+        } catch (error) {
+            console.error('Error calling logout endpoint:', error);
+        } finally {
+            await AsyncStorage.multiRemove(['token', 'userName', 'userRole']);
+        }
     },
 
     async getUserName(): Promise<string | null> {

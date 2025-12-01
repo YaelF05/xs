@@ -21,16 +21,23 @@ export default function HomeDeliverScreen() {
     router.push('/(app)/registerDeliver');
   };
 
+  const handleProfilePress = () => {
+    router.push('/(app)/settings');
+  };
+
   return (
     <View style={homeStyles.container}>
-
       <View style={homeStyles.header}>
-        <View style={homeStyles.userSection}>
+        <TouchableOpacity 
+          style={homeStyles.userSection}
+          onPress={handleProfilePress}
+          activeOpacity={0.7}
+        >
           <View style={homeStyles.avatar}>
             <Text style={homeStyles.avatarText}>{userName ? userName.charAt(0).toUpperCase() : 'U'}</Text>
           </View>
           <Text style={homeStyles.userName}>{userName || 'Usuario'}</Text>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.addButton}
           onPress={handleAddDelivery}
@@ -39,12 +46,10 @@ export default function HomeDeliverScreen() {
         </TouchableOpacity>
       </View>
 
-
       <ScrollView
         style={homeStyles.content}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={homeStyles.tabs}>
           <TouchableOpacity
             style={[homeStyles.tab, selectedTab === 'estadisticas' && homeStyles.tabActive]}
@@ -63,7 +68,6 @@ export default function HomeDeliverScreen() {
             </Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
     </View>
   );

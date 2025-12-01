@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
 import { colors } from '@/constants';
+import { StyleSheet } from 'react-native';
 
 export const loginStyles = StyleSheet.create({
   container: {
@@ -11,9 +11,8 @@ export const loginStyles = StyleSheet.create({
     marginBottom: 140
   },
   logoContainer: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginBottom: 60,
-    paddingLeft: 0,
   },
   logo: {
     width: 380,
@@ -67,6 +66,6 @@ export const loginStyles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: 20,
     paddingVertical: 20,
-    paddingBottom: 70, 
+    paddingBottom: 70,
   },
 });

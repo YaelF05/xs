@@ -84,60 +84,50 @@ export default function DeliverySummaryScreen() {
 
   return (
     <View style={deliverySummaryStyles.container}>
-
       <View style={deliverySummaryStyles.header}>
         <TouchableOpacity
-          onPress={() => router.back()}
+          onPress={() => router.push('/(app)/registerDeliver')}
           style={deliverySummaryStyles.backButton}
         >
           <Ionicons name="chevron-back" size={28} color={colors.texts.dark} />
         </TouchableOpacity>
       </View>
 
-
       <ScrollView
         style={deliverySummaryStyles.content}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={deliverySummaryStyles.scrollContent}
       >
-
         <Text style={deliverySummaryStyles.title}>Resumen de entrega</Text>
 
-
         <Text style={deliverySummaryStyles.folio}>{folio}</Text>
-
 
         <View style={deliverySummaryStyles.deliveredSection}>
           <Text style={deliverySummaryStyles.deliveredLabel}>Entregó </Text>
           <Text style={deliverySummaryStyles.deliveredValue}>{totalKg} KG</Text>
         </View>
 
-
         <View style={deliverySummaryStyles.table}>
-
           <View style={deliverySummaryStyles.tableHeader}>
-            <Text style={deliverySummaryStyles.tableHeaderText}>Plástico</Text>
-            <Text style={deliverySummaryStyles.tableHeaderText}>Kg</Text>
-            <Text style={deliverySummaryStyles.tableHeaderText}>Valor</Text>
+            <Text style={[deliverySummaryStyles.tableHeaderText, { textAlign: 'left' }]}>Plástico</Text>
+            <Text style={[deliverySummaryStyles.tableHeaderText, { textAlign: 'center' }]}>Kg</Text>
+            <Text style={[deliverySummaryStyles.tableHeaderText, { textAlign: 'right' }]}>Valor</Text>
           </View>
 
           {mergedPlastics.map((plastic) => (
             <View key={plastic.id} style={deliverySummaryStyles.tableRow}>
-              <Text style={deliverySummaryStyles.tableCell}>{plastic.name}</Text>
-              <Text style={deliverySummaryStyles.tableCell}>{plastic.quantity}</Text>
-              <Text style={deliverySummaryStyles.tableCell}>$ {plastic.value}</Text>
+              <Text style={[deliverySummaryStyles.tableCell, { textAlign: 'left' }]}>{plastic.name}</Text>
+              <Text style={[deliverySummaryStyles.tableCell, { textAlign: 'center' }]}>{plastic.quantity}</Text>
+              <Text style={[deliverySummaryStyles.tableCell, { textAlign: 'right' }]}>$ {plastic.value}</Text>
             </View>
           ))}
-
         </View>
-
 
         <View style={deliverySummaryStyles.totalSection}>
           <Text style={deliverySummaryStyles.totalLabel}>Total generado: </Text>
           <Text style={deliverySummaryStyles.totalValue}>${totalGenerated}</Text>
         </View>
       </ScrollView>
-
 
       <View style={deliverySummaryStyles.buttonContainer}>
         <Button label="Finalizar" onPress={handleFinish} />
