@@ -16,7 +16,7 @@ export const buttonStyles = StyleSheet.create({
   buttonText: {
     color: colors.white,
     fontSize: 22,
-    fontWeight: '900',
+    fontWeight: '700',
     letterSpacing: 0,
     fontFamily: 'Arimo',
   },

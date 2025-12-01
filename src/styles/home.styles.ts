@@ -36,7 +36,7 @@ export const homeStyles = StyleSheet.create({
   },
   userName: {
     fontSize: 18,
-    fontWeight: '800',
+    fontWeight: '700',
     color: colors.texts.dark,
   },
   addButton: {
@@ -50,9 +50,9 @@ export const homeStyles = StyleSheet.create({
   },
   addButtonText: {
     color: colors.white,
-    fontSize: 16,
-    fontWeight: '800',
-    marginTop: -5,
+    fontSize: 15,
+    fontWeight: '700',
+    marginTop: -3,
     fontFamily: 'Arimo'
   },
 
