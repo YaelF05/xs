@@ -11,10 +11,7 @@ type LoadingProps = {
 export function Loading({ text = "Cargando..." }: LoadingProps) {
   return (
     <View style={loginStyles.loadingContainer}>
-      <Image
-        source={require('../../assets/images/plastiapp-logo.png')}
-        style={loginStyles.loadingLogo}
-      />
+
       <ActivityIndicator size="large" color={colors.primary.normal} />
       <Text style={loginStyles.loadingText}>{text}</Text>
     </View>
