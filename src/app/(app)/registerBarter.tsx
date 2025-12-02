@@ -1,18 +1,11 @@
 import { Button } from '@/components';
 import { colors } from '@/constants';
+import { productService, ProductType } from '@/services';
 import { registerBarterStyles } from '@/styles/register.barter.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
-const MOCK_PRODUCTS = [
-  { id: 1, name: 'Shampoo', category: 'Aseo personal', price: 20 },
-  { id: 2, name: 'Chocomilk', category: 'Alimento', price: 28 },
-  { id: 3, name: 'Galletas', category: 'Alimento', price: 15 },
-  { id: 4, name: 'Jabón', category: 'Aseo personal', price: 12 },
-  { id: 5, name: 'Pasta dental', category: 'Aseo personal', price: 25 },
-];
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function RegisterBarterScreen() {
   const router = useRouter();
@@ -21,11 +14,29 @@ export default function RegisterBarterScreen() {
   const totalKg = 2;
   const totalGenerated = 16;
 
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<ProductType[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [productQuantities, setProductQuantities] = useState<Record<number, number>>({});
 
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      const data = await productService.getAllProducts();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error loading products:', error);
+      Alert.alert('Error', 'No se pudieron cargar los productos');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const calculateSpent = () => {
-    return MOCK_PRODUCTS.reduce((total, product) => {
+    return products.reduce((total, product) => {
       const quantity = productQuantities[product.id] || 0;
       return total + (quantity * product.price);
     }, 0);
@@ -36,7 +47,7 @@ export default function RegisterBarterScreen() {
   };
 
   const incrementQuantity = (productId: number) => {
-    const product = MOCK_PRODUCTS.find(p => p.id === productId);
+    const product = products.find(p => p.id === productId);
     if (!product) return;
 
     const currentQuantity = productQuantities[productId] || 0;
@@ -64,7 +75,7 @@ export default function RegisterBarterScreen() {
     }));
   };
 
-  const filteredProducts = MOCK_PRODUCTS.filter(product =>
+  const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     product.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -81,7 +92,7 @@ export default function RegisterBarterScreen() {
       return;
     }
 
-    const selectedProducts = MOCK_PRODUCTS
+    const selectedProducts = products
       .filter(product => (productQuantities[product.id] || 0) > 0)
       .map(product => ({
         id: product.id,
@@ -103,6 +114,14 @@ export default function RegisterBarterScreen() {
       params: summaryData,
     });
   };
+
+  if (loading) {
+    return (
+      <View style={[registerBarterStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" color={colors.primary.normal} />
+      </View>
+    );
+  }
 
   return (
     <View style={registerBarterStyles.container}>

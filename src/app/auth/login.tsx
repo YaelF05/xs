@@ -43,7 +43,14 @@ export default function LoginScreen() {
       }
     } catch (error: any) {
       console.error(error);
-      Alert.alert('Error', 'Credenciales inválidas o error en el servidor');
+      const errorMessage = error.response?.data?.message || error.message || '';
+      const lowerCaseError = errorMessage.toLowerCase();
+
+      if (lowerCaseError.includes('user') || lowerCaseError.includes('correo') || lowerCaseError.includes('email')) {
+        setErrors({ email: 'Correo no registrado' });
+      } else if (lowerCaseError.includes('password') || lowerCaseError.includes('contraseña')) {
+        setErrors({ password: 'Contraseña incorrecta' });
+      }
     }
   };
 

@@ -65,6 +65,13 @@ export default function RegisterScreen() {
   };
 
   const handleContinue = () => {
+    const hasPlastics = Object.values(plasticQuantities).some(quantity => quantity > 0);
+
+    if (!hasPlastics) {
+      Alert.alert('Error', 'Debes registrar al menos un plástico para continuar');
+      return;
+    }
+
     const folio = generateFolio();
 
     const selectedPlastics = plastics.map(p => ({
@@ -99,7 +106,7 @@ export default function RegisterScreen() {
     <View style={registerStyles.container}>
       <View style={registerStyles.header}>
         <TouchableOpacity
-          onPress={() => router.back()}
+          onPress={() => router.replace('/(app)/homeDeliver')}
           style={registerStyles.backButton}
         >
           <Ionicons name="chevron-back" size={28} color={colors.texts.dark} />
