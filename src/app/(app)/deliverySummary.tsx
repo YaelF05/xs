@@ -1,11 +1,12 @@
-import { Button, DeliveryModal } from '@/components';
+import { BottleLoadingAnimation, Button, DeliveryModal } from '@/components';
 import { colors } from '@/constants';
 import { plasticService } from '@/services';
 import { deliverySummaryStyles } from '@/styles/delivery.summary.styles';
+import { deliveryLoadingStyles } from '@/styles/delivery.loading.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 interface SelectedPlastic {
   id: number;
@@ -76,8 +77,13 @@ export default function DeliverySummaryScreen() {
 
   if (loading) {
     return (
-      <View style={[deliverySummaryStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-        <ActivityIndicator size="large" color={colors.primary.normal} />
+      <View style={deliveryLoadingStyles.container}>
+        <View style={deliveryLoadingStyles.bottleContainer}>
+          <BottleLoadingAnimation />
+        </View>
+        <Text style={deliveryLoadingStyles.loadingText}>
+          Generando entrega...
+        </Text>
       </View>
     );
   }

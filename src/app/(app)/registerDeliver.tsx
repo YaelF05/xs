@@ -89,10 +89,10 @@ export default function RegisterScreen() {
     };
 
     router.push({
-      pathname: '/(app)/deliveryLoading',
+      pathname: '/(app)/deliverySummary',
       params: deliveryData,
     });
-  };
+};
 
   if (loading) {
     return (
