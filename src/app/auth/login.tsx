@@ -36,7 +36,7 @@ export default function LoginScreen() {
           router.replace('/(app)/homeDeliver');
           break;
         case UserRoles.ADMIN:
-          router.replace('/(app)/homeDeliver');
+          router.replace('/(app)/homeAdmin');
           break;
         default:
           Alert.alert('Error', 'Tipo de usuario no reconocido');

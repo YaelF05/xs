@@ -28,7 +28,7 @@ export default function HomeDeliverScreen() {
   return (
     <View style={homeStyles.container}>
       <View style={homeStyles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={homeStyles.userSection}
           onPress={handleProfilePress}
           activeOpacity={0.7}
@@ -36,7 +36,7 @@ export default function HomeDeliverScreen() {
           <View style={homeStyles.avatar}>
             <Text style={homeStyles.avatarText}>{userName ? userName.charAt(0).toUpperCase() : 'U'}</Text>
           </View>
-          <Text style={homeStyles.userName}>{userName || 'Usuario'}</Text>
+          <Text style={homeStyles.userName}>{userName ? userName.split(' ')[0] : 'Usuario'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={homeStyles.addButton}

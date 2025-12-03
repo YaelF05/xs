@@ -1,9 +1,12 @@
 import { BottleLoadingAnimation, Button, DeliveryModal } from '@/components';
 import { colors } from '@/constants';
 import { plasticService } from '@/services';
-import { deliverySummaryStyles } from '@/styles/delivery.summary.styles';
+import { authService } from '@/services/auth.service';
 import { deliveryLoadingStyles } from '@/styles/delivery.loading.styles';
+import { deliverySummaryStyles } from '@/styles/delivery.summary.styles';
+import { UserRoles } from '@/types/user';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
@@ -23,13 +26,20 @@ export default function DeliverySummaryScreen() {
   const [loading, setLoading] = useState(true);
   const [mergedPlastics, setMergedPlastics] = useState<SelectedPlastic[]>([]);
   const [totalGenerated, setTotalGenerated] = useState<string>('0');
+  const [userRole, setUserRole] = useState<UserRoles | null>(null);
 
   const folio = params.folio as string;
   const passedPlastics: SelectedPlastic[] = params.plasticsData ? JSON.parse(params.plasticsData as string) : [];
 
   useEffect(() => {
     loadFreshData();
+    loadUserRole();
   }, []);
+
+  const loadUserRole = async () => {
+    const role = await authService.getUserRole();
+    setUserRole(role);
+  };
 
   const loadFreshData = async () => {
     try {
@@ -66,13 +76,26 @@ export default function DeliverySummaryScreen() {
 
   const totalKg = mergedPlastics.reduce((acc, curr) => acc + curr.quantity, 0);
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+    try {
+      // Extract number from "Folio X"
+      const folioNumber = parseInt(folio.replace('Folio ', ''), 10);
+      if (!isNaN(folioNumber)) {
+        await AsyncStorage.setItem('last_folio_number', folioNumber.toString());
+      }
+    } catch (e) {
+      console.error("Failed to save folio", e);
+    }
     setModalVisible(true);
   };
 
   const handleCloseModal = () => {
     setModalVisible(false);
-    router.replace('/(app)/homeDeliver');
+    if (userRole === UserRoles.ADMIN) {
+      router.replace('/(app)/homeAdmin');
+    } else {
+      router.replace('/(app)/homeDeliver');
+    }
   };
 
   if (loading) {
@@ -92,7 +115,7 @@ export default function DeliverySummaryScreen() {
     <View style={deliverySummaryStyles.container}>
       <View style={deliverySummaryStyles.header}>
         <TouchableOpacity
-          onPress={() => router.push('/(app)/registerDeliver')}
+          onPress={() => router.back()}
           style={deliverySummaryStyles.backButton}
         >
           <Ionicons name="chevron-back" size={28} color={colors.texts.dark} />

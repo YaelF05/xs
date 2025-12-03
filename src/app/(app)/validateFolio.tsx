@@ -1,9 +1,11 @@
 import { Button } from '@/components';
 import { colors } from '@/constants';
+import { authService } from '@/services/auth.service';
 import { validateFolioStyles } from '@/styles/validate.folio.styles';
+import { UserRoles } from '@/types/user';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function ValidateFolioScreen() {
@@ -12,6 +14,16 @@ export default function ValidateFolioScreen() {
 
   const [folio, setFolio] = useState('');
   const [error, setError] = useState('');
+  const [userRole, setUserRole] = useState<UserRoles | null>(null);
+
+  useEffect(() => {
+    loadUserRole();
+  }, []);
+
+  const loadUserRole = async () => {
+    const role = await authService.getUserRole();
+    setUserRole(role);
+  };
 
   const handleValidate = () => {
     if (!folio.trim()) {
@@ -33,11 +45,19 @@ export default function ValidateFolioScreen() {
     });
   };
 
+  const handleBack = () => {
+    if (userRole === UserRoles.ADMIN) {
+      router.replace('/(app)/homeAdmin');
+    } else {
+      router.replace('/(app)/homeTrade');
+    }
+  };
+
   return (
     <View style={validateFolioStyles.container}>
       <View style={validateFolioStyles.header}>
         <TouchableOpacity
-          onPress={() => router.back()}
+          onPress={handleBack}
           style={validateFolioStyles.backButton}
         >
           <Ionicons name="chevron-back" size={28} color={colors.texts.dark} />
@@ -61,7 +81,7 @@ export default function ValidateFolioScreen() {
           value={folio}
           onChangeText={(text) => {
             setFolio(text);
-            if (error) setError(''); 
+            if (error) setError('');
           }}
           autoCapitalize="none"
           autoCorrect={false}

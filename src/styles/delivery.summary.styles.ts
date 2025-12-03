@@ -118,6 +118,6 @@ export const deliverySummaryStyles = StyleSheet.create({
     paddingVertical: 20,
     paddingBottom: 40,
     borderTopWidth: 1,
-    borderTopColor: '#F3F4F6',
+    borderTopColor: colors.white,
   },
 });

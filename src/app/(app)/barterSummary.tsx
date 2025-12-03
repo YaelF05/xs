@@ -1,19 +1,31 @@
 import { Button } from '@/components';
+import { BarterModal } from '@/components/barterModal';
 import { colors } from '@/constants';
+import { authService } from '@/services/auth.service';
 import { barterSummaryStyles } from '@/styles/barter.summary.styles';
+import { UserRoles } from '@/types/user';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { BarterModal } from '@/components/barterModal';
 
 export default function BarterSummaryScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
+  const [userRole, setUserRole] = useState<UserRoles | null>(null);
 
   const selectedProductsStr = params.selectedProducts as string || '[]';
   const selectedProducts = JSON.parse(selectedProductsStr);
+
+  useEffect(() => {
+    loadUserRole();
+  }, []);
+
+  const loadUserRole = async () => {
+    const role = await authService.getUserRole();
+    setUserRole(role);
+  };
 
   const handleFinish = () => {
     setModalVisible(true);
@@ -21,7 +33,11 @@ export default function BarterSummaryScreen() {
 
   const handleCloseModal = () => {
     setModalVisible(false);
-    router.replace('/(app)/homeTrade');
+    if (userRole === UserRoles.ADMIN) {
+      router.replace('/(app)/homeAdmin');
+    } else {
+      router.replace('/(app)/homeTrade');
+    }
   };
 
   return (
@@ -110,9 +126,9 @@ export default function BarterSummaryScreen() {
         <Button label="Finalizar" onPress={handleFinish} />
       </View>
 
-      <BarterModal 
-        visible={modalVisible} 
-        onClose={handleCloseModal} 
+      <BarterModal
+        visible={modalVisible}
+        onClose={handleCloseModal}
       />
     </View>
   );

@@ -1,8 +1,11 @@
 import { Button } from '@/components';
 import { colors } from '@/constants';
 import { plasticService, PlasticType } from '@/services';
-import { registerStyles } from '@/styles/register.styles';
+import { authService } from '@/services/auth.service';
+import { registerStyles } from '@/styles/register.deliver.styles';
+import { UserRoles } from '@/types/user';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
@@ -12,10 +15,17 @@ export default function RegisterScreen() {
   const [loading, setLoading] = useState(true);
   const [plastics, setPlastics] = useState<PlasticType[]>([]);
   const [plasticQuantities, setPlasticQuantities] = useState<Record<number, number>>({});
+  const [userRole, setUserRole] = useState<UserRoles | null>(null);
 
   useEffect(() => {
     loadPlastics();
+    loadUserRole();
   }, []);
+
+  const loadUserRole = async () => {
+    const role = await authService.getUserRole();
+    setUserRole(role);
+  };
 
   const loadPlastics = async () => {
     try {
@@ -44,10 +54,23 @@ export default function RegisterScreen() {
     return quantity * pricePerKg;
   };
 
-  const generateFolio = () => {
-    const timestamp = Date.now().toString();
-    const random = Math.random().toString(36).substring(2, 9).toUpperCase();
-    return `Folio ${timestamp.slice(-6)}${random.slice(0, 3)}`;
+  const getNextFolio = async () => {
+    try {
+      const lastFolio = await AsyncStorage.getItem('last_folio_number');
+      let nextNumber = 1;
+
+      if (lastFolio) {
+        nextNumber = parseInt(lastFolio, 10) + 1;
+      }
+
+      // Return the number without padding
+      return `Folio ${nextNumber}`;
+    } catch (error) {
+      console.error('Error generating folio:', error);
+      // Fallback to timestamp if storage fails
+      const timestamp = Date.now().toString();
+      return `Folio ${timestamp.slice(-6)}`;
+    }
   };
 
   const incrementQuantity = (plasticId: number) => {
@@ -64,7 +87,7 @@ export default function RegisterScreen() {
     }));
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     const hasPlastics = Object.values(plasticQuantities).some(quantity => quantity > 0);
 
     if (!hasPlastics) {
@@ -72,7 +95,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    const folio = generateFolio();
+    const folio = await getNextFolio();
 
     const selectedPlastics = plastics.map(p => ({
       id: p.id,
@@ -92,7 +115,15 @@ export default function RegisterScreen() {
       pathname: '/(app)/deliverySummary',
       params: deliveryData,
     });
-};
+  };
+
+  const handleBack = () => {
+    if (userRole === UserRoles.ADMIN) {
+      router.replace('/(app)/homeAdmin');
+    } else {
+      router.replace('/(app)/homeDeliver');
+    }
+  };
 
   if (loading) {
     return (
@@ -106,7 +137,7 @@ export default function RegisterScreen() {
     <View style={registerStyles.container}>
       <View style={registerStyles.header}>
         <TouchableOpacity
-          onPress={() => router.replace('/(app)/homeDeliver')}
+          onPress={handleBack}
           style={registerStyles.backButton}
         >
           <Ionicons name="chevron-back" size={28} color={colors.texts.dark} />
