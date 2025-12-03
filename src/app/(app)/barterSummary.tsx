@@ -3,18 +3,24 @@ import { colors } from '@/constants';
 import { barterSummaryStyles } from '@/styles/barter.summary.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { BarterModal } from '@/components/barterModal';
 
 export default function BarterSummaryScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const selectedProductsStr = params.selectedProducts as string || '[]';
   const selectedProducts = JSON.parse(selectedProductsStr);
 
   const handleFinish = () => {
+    setModalVisible(true);
+  };
 
+  const handleCloseModal = () => {
+    setModalVisible(false);
     router.replace('/(app)/homeTrade');
   };
 
@@ -78,7 +84,6 @@ export default function BarterSummaryScreen() {
           <Text style={barterSummaryStyles.barterTitle}>Canjeado por:</Text>
 
           <View style={barterSummaryStyles.productsTable}>
-
             <View style={barterSummaryStyles.tableHeader}>
               <Text style={barterSummaryStyles.tableHeaderText}>Producto</Text>
               <Text style={barterSummaryStyles.tableHeaderText}>Cantidad</Text>
@@ -104,6 +109,11 @@ export default function BarterSummaryScreen() {
       <View style={barterSummaryStyles.buttonContainer}>
         <Button label="Finalizar" onPress={handleFinish} />
       </View>
+
+      <BarterModal 
+        visible={modalVisible} 
+        onClose={handleCloseModal} 
+      />
     </View>
   );
 }
